@@ -15,15 +15,15 @@ const Sum = () => {
   const paddng = {
     padding: '20px'
   };
-  const handlesubmit = (ev: any) => {
+  const handlesubmit = (ev: React.MouseEvent<HTMLElement>) => {
     ev.preventDefault();
+    const values = {
+        number1: number1,
+        number2: number2
+    };
     if (number1 ==='' || number2 === '') {
         //
     } else {
-        const values = {
-            number1: number1,
-            number2: number2
-        };
         axios.post(`http://localhost:8081/sum`, { values })
         .then(res => {
             setSum(res.data.sum)
@@ -31,10 +31,10 @@ const Sum = () => {
     }
       
   }
-  const handlenumber1 = (ev: any) => {
+  const handlenumber1 = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setNumber1(ev.target.value);
   }
-  const handlenumber2 = (ev: any) => {
+  const handlenumber2 = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setNumber2(ev.target.value);
   }
   return (
@@ -47,13 +47,13 @@ const Sum = () => {
                     <form className="sumform"> 
                         <div className="label_hd">Enter the numbers</div>
                         <Grid container item xs={12} spacing={3} style={paddng}>
-                        <TextField id="number1" type="number" label="Number 1" variant="outlined" value={number1} onChange={(ev) => handlenumber1(ev)}/>
+                        <TextField id="number1" type="number" label="Number 1" variant="outlined" value={number1} onChange={handlenumber1}/>
                         </Grid>
                         <Grid container item xs={12} spacing={3} style={paddng}>
-                            <TextField id="number2" type="number" label="Number 2" variant="outlined" value={number2} onChange={(ev) => handlenumber2(ev)}/>
+                            <TextField id="number2" type="number" label="Number 2" variant="outlined" value={number2} onChange={handlenumber2}/>
                         </Grid>
                         <Grid container item xs={12} spacing={3} style={paddng}>
-                            <Button variant="contained" style={mystyle} onClick={(ev) => handlesubmit(ev) }>Sum</Button>
+                            <Button variant="contained" style={mystyle} onClick={handlesubmit}>Sum</Button>
                         </Grid>
                     </form>
                     <hr className="line"/>
